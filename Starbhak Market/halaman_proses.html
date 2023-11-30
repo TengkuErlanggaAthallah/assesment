@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-baxB/HV16TkBHy6Dg8M79SCGlv6oLpCKC/Joa5H4SSz7r0ZF4RHJrh8p+9S3GrfoeOst9dyeGOpqiNIVBae1jA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Order Confirmation</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .icon-check {
+            color: #28a745;
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .btn-back {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="icon-check">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h2>Pesanan Anda Telah Diproses</h2>
+        <p>Terima kasih telah berbelanja di Starbhak Mart. Pesanan Anda sudah dalam proses.</p>
+        <p>Nomor Order: <strong>#<span id="displayOrderNumber"></span></strong></p>
+        <p>Total Pembayaran: Rp. <span id="displayTotal"></span></p>
+        <button class="btn btn-primary btn-back" onclick="window.location.href='index.html'">Kembali ke Beranda</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var totalAmount = localStorage.getItem("totalAmount");
+            $("#displayTotal").text(totalAmount);
+
+            var orderNumber = generateOrderNumber();
+            $("#displayOrderNumber").text(orderNumber);
+
+            localStorage.removeItem("totalAmount");
+        });
+
+        function generateOrderNumber() {
+            var currentDate = new Date();
+            var year = currentDate.getFullYear();
+            var month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+            var day = currentDate.getDate().toString().padStart(2, '0');
+            var hours = currentDate.getHours().toString().padStart(2, '0');
+            var minutes = currentDate.getMinutes().toString().padStart(2, '0');
+            var seconds = currentDate.getSeconds().toString().padStart(2, '0');
+
+            return year + month + day + hours + minutes + seconds;
+        }
+    </script>
+</body>
+
+</html>

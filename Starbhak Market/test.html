@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-baxB/HV16TkBHy6Dg8M79SCGlv6oLpCKC/Joa5H4SSz7r0ZF4RHJrh8p+9S3GrfoeOst9dyeGOpqiNIVBae1jA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Starbhak Mart</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .sidebar {
+            background-color: #555555;
+            color: #ffffff;
+            height: 100vh;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .item-box {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .remove-btn {
+            cursor: pointer;
+        }
+
+        .card {
+            margin: 5px;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <h5 style="color: #ffffff;">Starbhak Mart</h5>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block sidebar">
+                <div class="sidebar-sticky">
+                    <br>
+                    <ul class="list-group">
+                        <div class="dropdown">
+                            <select class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false" style="margin-left: 50px;">
+                                <option value="Takeaway" style="text-align: center;">Take Away</option>
+                                <option value="Dine in" style="text-align: center;">Dine in</option>
+                            </select>
+                        </div>
+                    </ul>
+                    <br>
+                    <div>
+                        <hr>
+                    </div>
+                    <ul id="sidebarList" class="list-group">
+                        <!-- Tempat untuk menampilkan item-item yang ditambahkan -->
+                    </ul>
+                    <button type="button" class="btn btn-info" style="width: 200px; margin-left: 25px;" onclick="buy()">Buy</button>
+                </div>
+            </nav>
+            <main role="main" class="col-md-10 px-4">
+                <div class="content">
+                    <h2>Starbhak Mart</h2>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="card">
+                                <img src="assets/Makanan/ayam geprek.jfif" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title" id="nama">Ayam Geprek</h5>
+                                    <p class="card-text">Rp.15.000</p>
+                                    <button class="btn btn-success" onclick="addToSidebar()">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ... (kartu-kartu lainnya) ... -->
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-rbsU5fYZn5zgAq6fptRXOhXh+1FC7STC8P1pE93kEFZDr2/V3pI4dI+oTnMVvXHj"
+        crossorigin="anonymous"></script>
+    <script>
+        var total = 0; // variabel total untuk menyimpan jumlah harga
+
+        // Fungsi untuk menambahkan item ke sidebar
+        function addToSidebar() {
+            var sidebarList = document.getElementById("sidebarList");
+
+            // Mengambil nilai dari elemen dengan id "nama"
+            var nama = document.getElementById("nama").textContent;
+
+            // Mengambil nilai dari elemen dengan class "card-text" (harga kartu)
+            var hargaText = document.querySelector(".card-text").textContent;
+            var harga = parseInt(hargaText.replace("Rp.", "").replace(",", ""));
+
+            var listItem = document.createElement("li");
+            listItem.className = "list-group-item";
+            listItem.textContent = nama + " - Rp." + harga.toLocaleString() + ".000"; // Format nama dan harga dengan Rp.
+
+            sidebarList.appendChild(listItem);
+
+            // Menambahkan harga ke total
+            total += harga;
+        }
+
+        // Fungsi untuk membeli item dan menampilkan total dengan pajak
+        function buy() {
+            // Menghitung pajak 10%
+            var pajak = 0.1 * total;
+
+            // Menampilkan total dan pajak
+            var totalWithTax = total + pajak;
+            alert("Total pembelian (termasuk pajak 10%): Rp." + totalWithTax.toLocaleString() +".000");
+
+            // Reset total ke 0 setelah pembelian
+            total = 0;
+
+            // Menghapus semua item di sidebar
+            var sidebarList = document.getElementById("sidebarList");
+            sidebarList.innerHTML = "";
+        }
+    </script>
+</body>
+</html>
